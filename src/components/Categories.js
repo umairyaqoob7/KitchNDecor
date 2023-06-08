@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 },
 head: {
     color: colors.text1,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: '300',
     margin: 10,
     alignSelf: 'center',
@@ -53,7 +53,7 @@ box: {
     backgroundColor: colors.col1,
     elevation: 20,
     margin: 10,
-    padding: 10,
+    padding: 8,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
