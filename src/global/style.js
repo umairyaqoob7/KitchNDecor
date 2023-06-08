@@ -37,7 +37,7 @@ module.exports = {
         width: '80%',
         borderBottomColor: '#E0E0E0',
         borderBottomWidth: 1,
-        marginVertical: 20,
+        marginVertical: 10,
     },
     veg: {
         width: 20,
