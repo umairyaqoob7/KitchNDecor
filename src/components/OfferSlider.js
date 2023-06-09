@@ -7,15 +7,18 @@ const OfferSlider = () => {
   return (
     <View>
       <View style={styles.offerSlider}>
-        <Swiper>
+        <Swiper autoplay={true} autoplayTimeout={5} showsButtons={true}
+        dotColor={colors.text2} activeDotColor={colors.text1}
+        nextButton={<Text style={styles.buttonText}>›</Text>}
+        prevButton={<Text style={styles.buttonText}>‹</Text>}>
           <View style={styles.slide}>
-            <Image source={require('../../assets/offer1.jpg')} style={styles.image} />
+            <Image source={require('../../assets/sale20.jpg')} style={styles.image} />
           </View>
           <View style={styles.slide}>
             <Image source={require('../../assets/sale2.jpg')} style={styles.image} />
           </View>
           <View style={styles.slide}>
-            <Image source={require('../../assets/decor1.jpg')} style={styles.image} />
+            <Image source={require('../../assets/sale25.jpg')} style={styles.image} />
           </View>
         </Swiper>
       </View>
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 20,
 },
 slide: {
     width: '100%',
@@ -49,13 +52,13 @@ image: {
 },
 buttonText: {
     color: colors.text1,
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: '500',
     backgroundColor: 'white',
     borderRadius: 20,
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     textAlign: 'center',
-    lineHeight: 40,
+    lineHeight: 28,
 }
 });
