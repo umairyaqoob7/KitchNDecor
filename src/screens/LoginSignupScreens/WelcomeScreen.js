@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text,View,StyleSheet,Image,TouchableOpacity } from 'react-native';
-import logo from '../../../assets/logo.png';
+import logo1 from '../../../assets/logo1.png';
 import {colors, hr80} from '../../global/style';
 
 const WelcomeScreen = ({navigation}) => {
@@ -8,7 +8,7 @@ const WelcomeScreen = ({navigation}) => {
     <View style={styles.container}>
         <Text style={styles.title}>Welcome to Kitch n Decor </Text>
         <View style={styles.logout}>
-          <Image source={logo} style={styles.logo}/>
+          <Image source={logo1} style={styles.logo1}/>
         </View>
 
         <View style={hr80}/>
@@ -48,7 +48,7 @@ const styles=StyleSheet.create({
     //backgroundColor:"#fff",
     alignItems:"center",
   },
-  logo:{
+  logo1:{
     width:"100%",
     height:"100%",
   },

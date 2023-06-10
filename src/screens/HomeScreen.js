@@ -6,6 +6,8 @@ import OfferSlider from '../components/OfferSlider';
 import { AntDesign } from '@expo/vector-icons';
 import {colors} from '../global/style';
 
+
+
 export const HomeScreen = () => {
     return (
         <View style={styles.container}>
@@ -24,29 +26,31 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
+        // marginTop: 50,
         flex: 1,
         backgroundColor: colors.col1,
-        alignItems: "center",
-        width: "100%",
+        // alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     searchbox: {
-        flexDirection: "row",
-        width: "90%",
+        flexDirection: 'row',
+        width: '90%',
         backgroundColor: colors.col1,
         borderRadius: 30,
-        alignItems: "center",
+        alignItems: 'center',
         padding: 10,
         margin: 20,
         elevation: 10,
     },
-    searchicon: {
-        marginLeft: 10,
-        width: "70%",
-        fontSize: 18,
-        color: colors.text1
-    },
     input: {
-        color: colors.text1
+        marginLeft: 10,
+        width: '90%',
+        fontSize: 18,
+        color: colors.text1,
+    },
+    searchicon: {
+        color: colors.text1,
     }
 })
 export default HomeScreen;
