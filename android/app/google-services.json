@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "473129283928",
+    "project_id": "kitch-n-decor",
+    "storage_bucket": "kitch-n-decor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473129283928:android:d1a5f3b4476b4fe32e352d",
+        "android_client_info": {
+          "package_name": "com.anonymous.KitchNDecor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473129283928-t1q965s3ju9prjlgl81ntf13hcj6lhi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhZTPNNMA_45Ci7PUo-29ZQQNpOfKP_DY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473129283928-t1q965s3ju9prjlgl81ntf13hcj6lhi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
