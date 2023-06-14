@@ -39,17 +39,17 @@ module.exports = {
         borderBottomWidth: 1,
         marginVertical: 10,
     },
-    veg: {
+    kitchen: {
+        width: 20,
+        height: 20,
+        borderRadius: 20,
+        backgroundColor: 'gray',
+    },
+    decor: {
         width: 20,
         height: 20,
         borderRadius: 20,
         backgroundColor: 'green',
-    },
-    nonveg: {
-        width: 20,
-        height: 20,
-        borderRadius: 20,
-        backgroundColor: 'red',
     },
     navbtn: {
         backgroundColor: 'red',

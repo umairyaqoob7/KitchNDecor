@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StatusBar, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StatusBar, StyleSheet, ScrollView,FlatList } from 'react-native';
 import HomeHeadNav from '../components/HomeHeadNav';
 import Categories from '../components/Categories';
 import OfferSlider from '../components/OfferSlider';
@@ -13,6 +13,7 @@ const HomeScreen = () => {
   const itemRef = firebase.firestore().collection('ItemData');
   const [kitchenData, setKitchenData] = useState([]);
   const [decorData, setDecorData] = useState([]);
+  const [search, setSearch] = useState([]);
 
 
   useEffect(() => {
@@ -28,29 +29,47 @@ const HomeScreen = () => {
 
   useEffect(() => {
     setKitchenData(itemData.filter((item) => item.itemType == 'Kitchen-Items'));
-    console.log('Kitchen Data:', kitchenData);
+    // console.log('Kitchen Data:', kitchenData);
 
     setDecorData(itemData.filter((item) => item.itemType == 'Home-Decoration'));
-    console.log('Decor Data:', decorData);
+    // console.log('Decor Data:', decorData);
   }, [itemData]);
 
-  console.log(decorData)
+  //console.log(decorData)
   //console.log (kitchenData)
   //console.log(itemData);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar />
       <HomeHeadNav />
       <View style={styles.searchbox}>
         <AntDesign name="search1" size={24} color="black" style={styles.searchicon} />
-        <TextInput style={styles.input} placeholder="search" />
+        <TextInput style={styles.input} placeholder="search"
+          onChangeText={(text) => { setSearch(text) }}
+        />
       </View>
+      {search != '' && <View style={styles.seacrhresultsouter}>
+        <FlatList style={styles.searchresultsinner} data={itemData} renderItem={
+          ({ item }) => {
+            if (item.itemName.toLowerCase().includes(search.toLowerCase())) {
+              return (
+                <View style={styles.searchresult}>
+                  <AntDesign name="arrowright" size={24} color="black" />
+                  <Text style={styles.searchresulttext}>{item.itemName}</Text>
+                </View>
+              )
+            }
+          }
+        } />
+      </View>}
       <Categories />
       <OfferSlider />
       {/*<Text>HomeScreen</Text>*/}
-      <Cardslider title={"Today's Special"} data={itemData}/>
-    </View>
+      <Cardslider title={"Today's Special"} data={itemData} />
+      <Cardslider title={"Kitchen Utensils"} data={kitchenData} />
+      <Cardslider title={"Home Decoration"} data={decorData} />
+    </ScrollView>
   );
 };
 
@@ -80,6 +99,26 @@ const styles = StyleSheet.create({
   searchicon: {
     color: colors.text1,
   },
+  seacrhresultsouter: {
+    width: '100%',
+    marginHorizontal: 30,
+    height: '100%',
+    backgroundColor: colors.col1,
+},
+searchresultsinner: {
+    width: '100%',
+},
+searchresult: {
+    width: '100%',
+    flexDirection: 'row',
+    // alignItems: 'center',
+    padding: 5,
+},
+searchresulttext: {
+    marginLeft: 10,
+    fontSize: 18,
+    color: colors.text1,
+},
 });
 
 export default HomeScreen;
