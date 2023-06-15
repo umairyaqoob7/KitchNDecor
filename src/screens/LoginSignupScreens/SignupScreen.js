@@ -6,7 +6,9 @@ import { Octicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
+
+import { firebase } from '../../Firebase/FirebaseConfig';
 
 const SignupScreen = ({ navigation }) => {
   const [emailfocus, setEmailfocus] = useState(false);
@@ -18,9 +20,74 @@ const SignupScreen = ({ navigation }) => {
   const [showcpassword, setShowcpassword] = useState(false);
   const [cpasswordfocus, setcPasswordfocus] = useState(false);
 
+  //taking from data
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [cpassword, setcPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  //console.log(email)
+  const [customError, setCustomError] = useState('');
+  const [successmsg, setSuccessmsg] = useState(null);
+  const handleSignup = () => {
+    const FormData = {
+      name: name,
+      email: email,
+      phone: phone,
+      password: password,
+      //cpassword:cpassword,
+      address: address
+    }
+    
+
+    if (password != cpassword) {
+      // alert("Password doesn't match");
+      setCustomError("Password doesn't match");
+      return;
+    }
+    else if (phone.length != 11) {
+      setCustomError("Phone number should be 11 digits");
+      return;
+    }
+    try {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log('user created')
+          //setSuccessmsg('User created successfully')
+          const userRef = firebase.firestore().collection('UserData')
+
+          userRef.add(FormData).then(() =>{
+            console.log('data added to firestore')
+          }).catch((error) =>{
+            console.log('firestore error', error)
+            setSuccessmsg('User created successfully')
+          })
+        })
+        .catch((error) => {
+          console.log('sign up firebase error', error.message)
+          if (error.message == 'Firebase: The email address is already in use by another account. (auth/email-already-in-use).') {
+            setCustomError('Email already exists')
+          }
+          else if (error.message == 'Firebase: The email address is badly formatted. (auth/invalid-email).') {
+            setCustomError('Invalid Email')
+          }
+          else if (error.message == 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+            setCustomError('Password should be at least 6 characters')
+          }
+          else {
+            setCustomError(error.message)
+          }
+        })
+    }
+    catch (error) {
+      console.log('sign up system error', error.message)
+    }
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.head1}>Sign Up</Text>
+      {customError != ''&& <Text style={styles.errormsg}>{customError}</Text>}
       <View style={styles.inputout}>
         <AntDesign name="user" size={24} color={namefocus === true ? colors.text1 : colors.text2} />
         <TextInput style={styles.input} placeholder="Full Name" onFocus={() => {
@@ -31,31 +98,39 @@ const SignupScreen = ({ navigation }) => {
           setPhonefocus(false)
           setShowcpassword(false)
           setcPasswordfocus(false)
+          setCustomError('')
         }}
+          onChangeText={(Text) => setName(Text)}
         />
       </View>
       <View style={styles.inputout}>
         <Entypo name="email" size={24} color={emailfocus === true ? colors.text1 : colors.text2} />
         <TextInput style={styles.input} placeholder="Email" onFocus={() => {
-           setEmailfocus(true)
-           setPasswordfocus(false)
-           setShowpassword(false)
-           setNamefocus(false)
-           setPhonefocus(false)
+          setEmailfocus(true)
+          setPasswordfocus(false)
+          setShowpassword(false)
+          setcPasswordfocus(false)
+          setNamefocus(false)
+          setPhonefocus(false)
+          setCustomError('')
         }}
+          onChangeText={(Text) => setEmail(Text)}
         />
       </View>
 
       <View style={styles.inputout}>
-      <Feather name="smartphone" size={24} 
-      color={phonefocus === true ? colors.text1 : colors.text2} />
+        <Feather name="smartphone" size={24}
+          color={phonefocus === true ? colors.text1 : colors.text2} />
         <TextInput style={styles.input} placeholder="Phone No" onFocus={() => {
           setEmailfocus(false)
           setPasswordfocus(false)
           setShowpassword(false)
+          setcPasswordfocus(false)
           setNamefocus(false)
           setPhonefocus(true)
+          setCustomError('')
         }}
+          onChangeText={(Text) => setPhone(Text)}
         />
       </View>
 
@@ -66,10 +141,13 @@ const SignupScreen = ({ navigation }) => {
           setEmailfocus(false)
           setPasswordfocus(true)
           setShowpassword(false)
+          setcPasswordfocus(false)
           setNamefocus(false)
           setPhonefocus(false)
+          setCustomError('')
 
         }}
+          onChangeText={(Text) => setPassword(Text)}
           secureTextEntry={showpassword === false ? true : false}
         />
 
@@ -85,8 +163,10 @@ const SignupScreen = ({ navigation }) => {
           setcPasswordfocus(true)
           setNamefocus(false)
           setPhonefocus(false)
+          setCustomError('')
 
         }}
+          onChangeText={(Text) => setcPassword(Text)}
           secureTextEntry={showcpassword === false ? true : false}
         />
 
@@ -95,21 +175,26 @@ const SignupScreen = ({ navigation }) => {
       </View>
       {/*Password End */}
 
-      <Text style={styles.address}>Please enter your address</Text>
       <View style={styles.inputout} >
         <TextInput style={styles.input1} placeholder="Enter your Address"
           onPress={() => {
             setEmailfocus(false)
             setPasswordfocus(false)
             setShowpassword(false)
+            setcPasswordfocus(false)
             setNamefocus(false)
             setPhonefocus(false)
+            setCustomError('')
           }}
+          onChangeText={(Text) => setAddress(Text)}
         />
       </View>
 
-      <TouchableOpacity style={btn1}>
-        <Text style={{ color: colors.col1, fontSize: titles.btntxt, fontWeight: "bold" }}>Sign up</Text>
+      <TouchableOpacity style={btn1} onPress={() => handleSignup()}>
+        <Text style={{
+          color: colors.col1, fontSize: titles.btntxt,
+          fontWeight: "bold"
+        }}>Sign up</Text>
       </TouchableOpacity>
 
       {/*<Text style={styles.forgot}>Forgot</Text>*/}
@@ -140,7 +225,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 20,
   },
   head1: {
     fontSize: titles.title1,
@@ -192,7 +277,33 @@ const styles = StyleSheet.create({
   },
   signup: {
     color: colors.text1,
-  }
+  },
+  address: {
+    fontSize: 18,
+    color: colors.text2,
+    textAlign: 'center',
+    marginTop: 0,
+},
+errormsg: {
+    color: 'red',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 10,
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+},
+successmessage: {
+    color: 'green',
+    fontSize: 18,
+    textAlign: 'center',
+    margin: 10,
+    borderColor: 'green',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+}
 });
 
 export default SignupScreen;
