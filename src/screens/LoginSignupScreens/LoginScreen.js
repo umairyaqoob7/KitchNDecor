@@ -1,26 +1,62 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { titles, colors, btn1, hr80} from '../../global/style';
+import { titles, colors, btn1, hr80 } from '../../global/style';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const LoginScreen = ({navigation}) => {
+import { firebase } from '../../Firebase/FirebaseConfig';
+
+const LoginScreen = ({ navigation }) => {
     const [emailfocus, setEmailfocus] = useState(false);
     const [passwordfocus, setPasswordfocus] = useState(false);
     const [showpassword, setShowpassword] = useState(false);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [customError, setcustomError] = useState('');
+
+    const handlelogin = () => {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                //Sign In
+                var user = userCredential.user;
+                console.log('Logged in successfully !!!!!');
+                //console.log(user);
+                // ...
+                navigation.navigate('welcomepage');
+            })
+            .catch((error) => {
+                var errorMessage = error.message;
+                //console.log(errorMessage);
+                if (errorMessage === 'Firebase: The email address is badly formatted. (auth/invalid-email).'
+                ) {
+                    setcustomError('Please enter a valid email address')
+                }
+                else {
+                    setcustomError('Incorrect email or password')
+                }
+            })
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.head1}>Sign In</Text>
+            <Text style={styles.head1}>Sign Up</Text>
+            {customError !== '' && <Text style={styles.errormsg}>
+                {customError}</Text>}
             <View style={styles.inputout}>
                 <AntDesign name="user" size={24} color={emailfocus === true ? colors.text1 : colors.text2} />
                 <TextInput style={styles.input} placeholder="Email" onFocus={() => {
                     setEmailfocus(true)
                     setPasswordfocus(false)
                     setShowpassword(false)
+                    setcustomError('')
                 }}
+                    onChangeText={(text) => {
+                        setEmail(text)
+                    }}
                 />
             </View>
             <View style={styles.inputout}>
@@ -28,16 +64,23 @@ const LoginScreen = ({navigation}) => {
                 <TextInput style={styles.input} placeholder="Password" onFocus={() => {
                     setEmailfocus(false)
                     setPasswordfocus(true)
+                    setcustomError('')
 
                 }}
+                    onChangeText={(text) => {
+                        setPassword(text)
+                    }}
                     secureTextEntry={showpassword === false ? true : false}
                 />
 
                 <Octicons name={showpassword == false ? "eye-closed" : "eye"} size={24} color="black" onPress={() => setShowpassword(!showpassword)} />
             </View>
-            <TouchableOpacity style={btn1} onPress={()=> 
-                navigation.navigate ('home')}>
-                <Text style={{ color: colors.col1, fontSize: titles.btntxt, fontWeight: "bold" }}>Sign in</Text>
+            <TouchableOpacity style={btn1} onPress={() =>
+                handlelogin()}>
+                <Text style={{
+                    color: colors.col1,
+                    fontSize: titles.btntxt, fontWeight: "bold"
+                }}>Sign in</Text>
             </TouchableOpacity>
 
             <Text style={styles.forgot}>Forgot</Text>
@@ -58,7 +101,7 @@ const LoginScreen = ({navigation}) => {
             </View>
             <View style={hr80}></View>
             <Text>Don't have an account?
-                <Text style={styles.signup }onPress={()=> navigation.navigate ('signup')}> Sign Up</Text></Text>
+                <Text style={styles.signup} onPress={() => navigation.navigate('signup')}> Sign Up</Text></Text>
         </View>
     )
 }
@@ -106,8 +149,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         fontSize: 25
     },
-    gf:{
-        flexDirection:'row'
+    gf: {
+        flexDirection: 'row'
     },
     gficon: {
         backgroundColor: 'white',
@@ -118,8 +161,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 20,
     },
-    signup:{
-        color:colors.text1
+    signup: {
+        color: colors.text1
     }
 });
 

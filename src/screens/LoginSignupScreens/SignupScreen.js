@@ -41,7 +41,7 @@ const SignupScreen = ({ navigation }) => {
       setCustomError("Password doesn't match");
       return;
     }
-    else if (phone.length != 10) {
+    else if (phone.length != 11) {
       setCustomError("Phone number should be 11 digit");
       return;
     }
@@ -94,8 +94,6 @@ const SignupScreen = ({ navigation }) => {
     catch (error) {
       console.log('sign up system error ', error.message)
     }
-
-
   }
   return (
     <View style={styles.container}>
