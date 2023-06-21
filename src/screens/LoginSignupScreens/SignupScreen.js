@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar } from 'react-native'
 import { titles, colors, btn1, hr80 } from '../../global/style';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
@@ -48,7 +48,7 @@ const SignupScreen = ({ navigation }) => {
     try {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredentials) => {
-          console.log(userCredentials?.user.uid);
+          //console.log(userCredentials?.user.uid);
           console.log('user created')
           // setSuccessmsg('User created successfully')
           if (userCredentials?.user.uid != null) {
@@ -97,6 +97,7 @@ const SignupScreen = ({ navigation }) => {
   }
   return (
     <View style={styles.container}>
+      <StatusBar />
       {successmsg == null ?
         <View style={styles.container}>
           <Text style={styles.head1}>Sign Up</Text>

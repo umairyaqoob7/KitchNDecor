@@ -43,7 +43,6 @@ const LoginScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.head1}>Sign In</Text>
-            <Text style={styles.head1}>Sign Up</Text>
             {customError !== '' && <Text style={styles.errormsg}>
                 {customError}</Text>}
             <View style={styles.inputout}>

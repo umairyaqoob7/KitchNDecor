@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Fontisto } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import {colors} from '../global/style';
 
-const HomeHeadNav = () => {
+const HomeHeadNav = ({navigation}) => {
   return (
     <View style={styles.container}>
         <Fontisto name="nav-icon-list-a" size={24} color="black" 
@@ -14,8 +14,10 @@ const HomeHeadNav = () => {
         <FontAwesome5 name="utensils" size={24} color="black" 
         style={styles.myicon} />
         </View>
-        <FontAwesome5 name="user-circle" size={26} color="black" 
+        <TouchableOpacity onPress={() => navigation.navigate ('userprofile')}>
+        <FontAwesome5 name="user-circle" size={32} color="black" 
         style={styles.myicon}/>
+        </TouchableOpacity>
     </View>
   );
 };

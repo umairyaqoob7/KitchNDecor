@@ -1,39 +1,47 @@
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {colors, decor, kitchen } from '../global/style';
+import { colors, decor, kitchen } from '../global/style';
 
-const Cardslider = ({ title, data }) => {
+const Cardslider = ({ title, data, navigation }) => {
     //console.log(title);
+    const openProductpage =(item) =>{
+        //console.log(item);
+        navigation.navigate('productpage',item)
+    }
     return (
         <View style={styles.container}>
             <Text style={styles.cardouthead}>
                 {title}
             </Text>
             <FlatList style={styles.cardsout}
-            horizontal
-            showsHorizontalScrollIndicator={false}
+                horizontal
+                showsHorizontalScrollIndicator={false}
                 data={data}
                 renderItem={({ item }) => (
-                    <View style={styles.card}>
-                        <View style={styles.s1}>
-                            <Image source={{
-                                uri: item.itemImageUrl
-                            }} style={styles.cardimgin} />
-                        </View>
-                        <View style={styles.s2}>
-                            <Text style={styles.txt1}>{item.itemName}</Text>
-                            <View style={styles.s2in}> 
-                            <Text style={styles.txt2}>Rs.{item.itemPrice}/-</Text>
-                            {/* {item.itemType == 'kitchen' ? <Text style={kitchen}>
-                            </Text> : <Text style={decor}></Text>} */}
+                    <TouchableOpacity key ={item.index} onPress={() => {
+                        openProductpage(item)
+                    }}>
+                        <View style={styles.card}>
+                            <View style={styles.s1}>
+                                <Image source={{
+                                    uri: item.itemImageUrl
+                                }} style={styles.cardimgin} />
                             </View>
-                        </View>
-                        <View style={styles.s3}>
+                            <View style={styles.s2}>
+                                <Text style={styles.txt1}>{item.itemName}</Text>
+                                <View style={styles.s2in}>
+                                    <Text style={styles.txt2}>Rs.{item.itemPrice}/-</Text>
+                                    {/* {item.itemType == 'kitchen' ? <Text style={kitchen}>
+                            </Text> : <Text style={decor}></Text>} */}
+                                </View>
+                            </View>
+                            <View style={styles.s3}>
                                 <Text style={styles.buybtn}>
                                     Buy
                                 </Text>
                             </View>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 )}
             />
         </View>
@@ -54,7 +62,7 @@ const styles = StyleSheet.create({
         fontWeight: '200',
         borderRadius: 10,
         marginHorizontal: 10,
-        marginTop:-5
+        marginTop: -5
     },
     cardsout: {
         width: '90%',

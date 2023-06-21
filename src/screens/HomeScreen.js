@@ -8,7 +8,7 @@ import { colors } from '../global/style';
 import { firebase } from '../Firebase/FirebaseConfig';
 import Cardslider from '../components/Cardslider';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [itemData, setItemData] = useState([]);
   const itemRef = firebase.firestore().collection('ItemData');
   const [kitchenData, setKitchenData] = useState([]);
@@ -42,7 +42,7 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar />
-      <HomeHeadNav />
+      <HomeHeadNav navigation={navigation}/>
       <View style={styles.searchbox}>
         <AntDesign name="search1" size={24} color="black" style={styles.searchicon} />
         <TextInput style={styles.input} placeholder="search"
@@ -66,9 +66,12 @@ const HomeScreen = () => {
       <Categories />
       <OfferSlider />
       {/*<Text>HomeScreen</Text>*/}
-      <Cardslider title={"Today's Special"} data={itemData} />
-      <Cardslider title={"Kitchen Utensils"} data={kitchenData} />
-      <Cardslider title={"Home Decoration"} data={decorData} />
+      <Cardslider title={"Today's Special"} data={itemData} navigation=
+      {navigation}/>
+      <Cardslider title={"Kitchen Utensils"} data={kitchenData} navigation=
+      {navigation}/>
+      <Cardslider title={"Home Decoration"} data={decorData} navigation=
+      {navigation}/>
     </ScrollView>
   );
 };

@@ -52,7 +52,7 @@ module.exports = {
         backgroundColor: 'green',
     },
     navbtn: {
-        backgroundColor: 'red',
+        backgroundColor: 'green',
         width: 50,
         height: 50,
         alignItems: 'center',
