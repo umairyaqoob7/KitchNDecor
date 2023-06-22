@@ -30,17 +30,17 @@ const Productpage = ({ navigation, route }) => {
                         <Text style={styles.head2}>Rs {data.itemPrice}/-</Text>
                     </View>
                     <View style={styles.s3}>
-                    <Text style={styles.head3}>About Item</Text>
-                    <Text style={styles.head4}>{data.itemDescription}</Text>
-                </View>
+                        <Text style={styles.head3}>About Item</Text>
+                        <Text style={styles.head4}>{data.itemDescription}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.btncont}>
                     <TouchableOpacity style={styles.btn3}>
                         <Text style={styles.btntxt}>Add to Cart</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn3}>
-                    <Text style={styles.btntxt}>Buy Now</Text>
+                    <TouchableOpacity style={styles.btn4}>
+                        <Text style={styles.btntxt1}>Buy Now</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         width: '100%',
     },
+
     container1: {
         // position: 'absolute',
         // top: 0,
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // justifyContent: 'center',
     },
+
     s1: {
         width: '100%',
         height: 300,
@@ -73,10 +75,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
     },
+
     cardimgin: {
         width: '100%',
         height: '100%',
     },
+
     s2: {
         width: '100%',
         padding: 20,
@@ -86,12 +90,14 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
+
     s2in: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 10,
     },
+
     head1: {
         fontSize: 20,
         fontWeight: '500',
@@ -100,22 +106,26 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginLeft:5,
     },
+
     head2: {
         fontSize: 20,
         fontWeight: '200',
         color: colors.text3,
         marginRight: 10,
     },
+
     s3: {
         backgroundColor: colors.text1,
         padding: 20,
         borderRadius: 10,
     },
+
     head3: {
         fontSize: 20,
         fontWeight: '400',
         color: colors.col1,
     },
+
     head4: {
         marginVertical: 10,
         fontSize: 15,
@@ -123,35 +133,61 @@ const styles = StyleSheet.create({
         color: colors.col1,
         textAlign: 'justify',
     },
+
     head5: {
         color: colors.text3,
         fontSize: 20,
         fontWeight: '200',
         marginLeft: 10,
     },
+
     btntxt: {
-        backgroundColor: 'black',
-        color: colors.col1,
+        backgroundColor: 'white',
+        color: 'black',
+        borderColor: 'black',
+        borderWidth: 1,
         paddingHorizontal: 25,
         paddingVertical: 20,
+        fontWeight:600,
         fontSize: 14,
-        borderRadius: 10,
+        //borderRadius: 10,
         width: '100%',
         textAlign: 'center',
 
     },
+
+    btntxt1: {
+        backgroundColor: 'black',
+        color: 'white',
+        paddingHorizontal: 25,
+        paddingVertical: 20,
+        fontSize: 14,
+        //borderRadius: 10,
+        width: '100%',
+        textAlign: 'center',
+
+    },
+
     btncont: {
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
         marginTop: -10,
         flexDirection: 'row',
     },
+
     btn3: {
         width: 140,
+        height: 63,
+        borderRadius: 30,
+        // elevation: 15,
+        margin: 12,
+    },
+    btn4: {
+        width: 140,
         height: 80,
-        // borderRadius: 50,
-        // elevation: 5,
+        borderRadius: 30,
+        // elevation: 15,
         margin: 12,
     },
 });

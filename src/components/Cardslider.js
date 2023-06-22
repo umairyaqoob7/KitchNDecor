@@ -4,9 +4,9 @@ import { colors, decor, kitchen } from '../global/style';
 
 const Cardslider = ({ title, data, navigation }) => {
     //console.log(title);
-    const openProductpage =(item) =>{
+    const openProductpage = (item) => {
         //console.log(item);
-        navigation.navigate('productpage',item)
+        navigation.navigate('productpage', item)
     }
     return (
         <View style={styles.container}>
@@ -18,7 +18,7 @@ const Cardslider = ({ title, data, navigation }) => {
                 showsHorizontalScrollIndicator={false}
                 data={data}
                 renderItem={({ item }) => (
-                    <TouchableOpacity key ={item.index} onPress={() => {
+                    <TouchableOpacity key={item.index} onPress={() => {
                         openProductpage(item)
                     }}>
                         <View style={styles.card}>
@@ -58,20 +58,20 @@ const styles = StyleSheet.create({
     cardouthead: {
         color: colors.text3,
         width: '90%',
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: '200',
         borderRadius: 10,
         marginHorizontal: 10,
         marginTop: -5
     },
     cardsout: {
-        width: '90%',
+        width: '100%',
         //backgroundColor: 'red',
     },
     card: {
         // backgroundColor: "aqua",
-        width: 300,
-        height: 300,
+        width: 150,
+        height: 290,
         margin: 10,
         borderRadius: 10,
         borderWidth: 1,
@@ -81,29 +81,34 @@ const styles = StyleSheet.create({
     cardimgin: {
         width: "100%",
         height: 200,
-        borderRadius: 10,
+        borderRadius: 8,
     },
     s2: {
-        flexDirection: 'row',
+        //flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         // backgroundColor: 'aqua',
     },
     txt1: {
-        fontSize: 18,
+        fontSize: 9,
         color: colors.text3,
         marginHorizontal: 5,
         width: 150,
+        marginLeft:10,
+        marginTop:10
     },
     txt2: {
-        fontSize: 20,
+        fontSize: 10,
         color: colors.text2,
-        marginRight: 10,
+        marginRight: 100,
+        marginLeft:10,
+        marginTop:5
     },
     s2in: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginHorizontal: 10,
+        marginHorizontal: -50,
+        
 
     },
     s3: {
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.text1,
         color: colors.col1,
         paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingVertical: 0,
         fontSize: 20,
         borderRadius: 10,
         width: '90%',
