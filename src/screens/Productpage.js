@@ -27,7 +27,7 @@ const Productpage = ({ navigation, route }) => {
                 <View style={styles.s2}>
                     <View style={styles.s2in}>
                         <Text style={styles.head1}>{data.itemName}</Text>
-                        <Text style={styles.head2}>Rs{data.itemPrice}/-</Text>
+                        <Text style={styles.head2}>Rs {data.itemPrice}/-</Text>
                     </View>
                     <View style={styles.s3}>
                     <Text style={styles.head3}>About Item</Text>
@@ -36,10 +36,10 @@ const Productpage = ({ navigation, route }) => {
                 </View>
 
                 <View style={styles.btncont}>
-                    <TouchableOpacity style={styles.btn2}>
+                    <TouchableOpacity style={styles.btn3}>
                         <Text style={styles.btntxt}>Add to Cart</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn2}>
+                    <TouchableOpacity style={styles.btn3}>
                     <Text style={styles.btntxt}>Buy Now</Text>
                     </TouchableOpacity>
                 </View>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: colors.text1,
         width: 200,
-        marginRight: 10,
+        marginRight: 5,
         marginLeft:5,
     },
     head2: {
@@ -130,13 +130,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     btntxt: {
-        backgroundColor: colors.text1,
+        backgroundColor: 'black',
         color: colors.col1,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        fontSize: 20,
+        paddingHorizontal: 25,
+        paddingVertical: 20,
+        fontSize: 14,
         borderRadius: 10,
-        width: '90%',
+        width: '100%',
         textAlign: 'center',
 
     },
@@ -144,7 +144,14 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 0,
+        marginTop: -10,
         flexDirection: 'row',
+    },
+    btn3: {
+        width: 140,
+        height: 80,
+        // borderRadius: 50,
+        // elevation: 5,
+        margin: 12,
     },
 });
