@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
     },
     card: {
         // backgroundColor: "aqua",
-        width: 150,
+        width: 130,
         height: 290,
         margin: 10,
-        borderRadius: 10,
+        borderRadius: 8,
         borderWidth: 1,
         borderColor: '#e8e8e8',
         backgroundColor: colors.col1,
@@ -94,14 +94,15 @@ const styles = StyleSheet.create({
         color: colors.text3,
         marginHorizontal: 5,
         width: 150,
-        marginLeft:10,
+        marginLeft:35,
+        fontWeight:500,
         marginTop:10
     },
     txt2: {
         fontSize: 10,
         color: colors.text2,
         marginRight: 100,
-        marginLeft:10,
+        marginLeft:35,
         marginTop:5
     },
     s2in: {
@@ -122,9 +123,10 @@ const styles = StyleSheet.create({
         color: colors.col1,
         paddingHorizontal: 10,
         paddingVertical: 0,
-        fontSize: 20,
-        borderRadius: 10,
+        fontSize: 18,
+        borderRadius: 5,
         width: '90%',
+        marginBottom:5,
         textAlign: 'center',
     }
 });

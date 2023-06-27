@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import  Swiper from 'react-native-swiper';
 import { colors } from '../global/style';
-
 const OfferSlider = () => {
   return (
     <View>
@@ -48,7 +47,7 @@ slide: {
 image: {
     width: '100%',
     height: '100%',
-    borderRadius: 20,
+    borderRadius: 10,
 },
 buttonText: {
     color: colors.text1,
