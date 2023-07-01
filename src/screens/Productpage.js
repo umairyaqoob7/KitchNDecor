@@ -1,7 +1,11 @@
-import { StyleSheet, Text, Image, View, TouchableOpacity, ScrollView } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, Image, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { navbtn, navbtnin, navbtnout, colors, btn2 } from '../global/style';
+import {
+    navbtn, navbtnin, navbtnout, colors, btn2, hr80, incdecbtn,
+    incdecinput, incdecout
+} from '../global/style';
+import { firebase } from '../Firebase/FirebaseConfig';
 
 const Productpage = ({ navigation, route }) => {
     const data = route.params;
@@ -9,6 +13,50 @@ const Productpage = ({ navigation, route }) => {
     if (route.params === undefined) {
         navigation.navigate('home')
     }
+
+    const [quantity, setQuantity] = useState('1');
+    const [addonquantity, setAddonquantity] = useState('0');
+
+    const addtocart = () => {
+        //console.log('add to cart')
+        const docRef = firebase.firestore().collection('UserCart').doc(firebase.auth().
+            currentUser.uid);
+
+        const data1 = { data, Addonquantity: addonquantity, Itemquantity: quantity }
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                docRef.update({
+                    cart: firebase.firestore.FieldValue.arrayUnion(data1)
+                })
+                alert('Added to Cart')
+            }
+            else {
+                docRef.set({
+                    cart: [data1],
+                })
+                alert('Added to Cart')
+            }
+        })
+    }
+
+    const increaseQuantity = () => {
+        setQuantity((parseInt(quantity) + 1).toString())
+    }
+    const decreaseQuantity = () => {
+        if (parseInt(quantity) > 1) {
+            setQuantity((parseInt(quantity) - 1).toString())
+        }
+    }
+
+    const increaseAddonQuantity = () => {
+        setAddonquantity((parseInt(addonquantity) + 1).toString())
+    }
+    const decreaseAddonQuantity = () => {
+        if (parseInt(addonquantity) > 0) {
+            setAddonquantity((parseInt(addonquantity) - 1).toString())
+        }
+    }
+
     return (
         <ScrollView style={styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('home')}
@@ -33,10 +81,71 @@ const Productpage = ({ navigation, route }) => {
                         <Text style={styles.head3}>About Item</Text>
                         <Text style={styles.head4}>{data.itemDescription}</Text>
                     </View>
+
+                    <View style={styles.container2}>
+                        <Text style={styles.txt1}>Location</Text>
+                        <Text style={styles.txt2}>{data.storeName}</Text>
+                        <View style={styles.container2in}>
+                            <Text style={styles.txt3}>{data.storeAddressBuilding}</Text>
+                            <View style={styles.dash}></View>
+                            <Text style={styles.txt3}>{data.storeAddressStreet}</Text>
+                            <View style={styles.dash}></View>
+                            <Text style={styles.txt3}>{data.storeAddressCity}</Text>
+                        </View>
+                    </View>
+
+                    {data.itemAddonPrice != "" &&
+                        <View style={styles.container3}>
+                            <View style={hr80}></View>
+                            <Text style={styles.txt5}>Add Extra</Text>
+                            <View style={styles.c3in}>
+                                <Text style={styles.text4}>{data.itemAddon}</Text>
+                                <Text style={styles.text4}>Rs {data.itemAddonPrice}/-</Text>
+                            </View>
+                            <View style={incdecout}>
+                                <Text style={incdecbtn} onPress={() => increaseAddonQuantity()}>+</Text>
+                                <TextInput value={addonquantity} style={incdecinput} />
+                                <Text style={incdecbtn} onPress={() => decreaseAddonQuantity()}>-</Text>
+                            </View>
+                        </View>
+                    }
+
+                    <View style={styles.container3}>
+                        <View style={hr80}></View>
+                        <Text style={styles.txt5}>Item Quantity</Text>
+                        <View style={incdecout}>
+                            <Text style={incdecbtn} onPress={() => increaseQuantity()}>+</Text>
+                            <TextInput value={quantity} style={incdecinput} />
+                            <Text style={incdecbtn} onPress={() => decreaseQuantity()}>-</Text>
+                        </View>
+                        <View style={hr80}></View>
+                    </View>
+                </View>
+
+                <View style={styles.container3}>
+                    {/* <View style={hr80}></View> */}
+
+                    <View style={styles.c4in}>
+                        <Text style={styles.txt2}>Total Price</Text>
+                        {data.itemAddonPrice != "" ?
+                            <Text style={styles.txt6}>PKR {
+                                ((parseInt(data.itemPrice) * parseInt(quantity))
+                                    + parseInt(addonquantity) * parseInt(data.itemAddonPrice)).toString()
+
+                            }/-</Text>
+
+                            :
+                            <Text style={styles.txt6}>PKR {
+                                ((parseInt(data.foodPrice) * parseInt(quantity))).toString()
+                            }/-</Text>
+                        }
+                    </View>
+
+                    <View style={hr80}></View>
                 </View>
 
                 <View style={styles.btncont}>
-                    <TouchableOpacity style={styles.btn3}>
+                    <TouchableOpacity style={styles.btn3} onPress={() => addtocart()}>
                         <Text style={styles.btntxt}>Add to Cart</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn4}>
@@ -69,7 +178,7 @@ const styles = StyleSheet.create({
 
     s1: {
         width: '100%',
-        height: 300,
+        height: 350,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -104,7 +213,7 @@ const styles = StyleSheet.create({
         color: colors.text1,
         width: 200,
         marginRight: 5,
-        marginLeft:5,
+        marginLeft: 5,
     },
 
     head2: {
@@ -121,7 +230,7 @@ const styles = StyleSheet.create({
     },
 
     head3: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '400',
         color: colors.col1,
     },
@@ -148,10 +257,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 25,
         paddingVertical: 20,
-        fontWeight:600,
+        fontWeight: 600,
         fontSize: 14,
-        //borderRadius: 10,
+        borderRadius: 10,
         width: '100%',
+        elevation: 10,
         textAlign: 'center',
 
     },
@@ -162,8 +272,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         paddingVertical: 20,
         fontSize: 14,
-        //borderRadius: 10,
+        borderRadius: 10,
         width: '100%',
+        elevation: 10,
         textAlign: 'center',
 
     },
@@ -172,7 +283,7 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         // alignItems: 'center',
-        marginTop: -10,
+        marginTop: -32,
         flexDirection: 'row',
     },
 
@@ -189,5 +300,81 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         // elevation: 15,
         margin: 12,
+    },
+    container2: {
+        width: '90%',
+        backgroundColor: colors.col1,
+        padding: 20,
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginVertical: 10,
+        marginTop: 30,
+        marginBottom: 15,
+        elevation: 10,
+        alignItems: 'center',
+    },
+    txt1: {
+        color: colors.text1,
+        fontSize: 20,
+        fontWeight: '200',
+        marginTop: -10,
+        marginBottom: -10,
+
+    },
+    txt2: {
+        color: colors.text3,
+        fontSize: 25,
+        fontWeight: '200',
+        marginVertical: 10,
+
+    },
+    container2in: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    txt3: {
+        color: colors.text1,
+        fontSize: 12,
+        //width:70 //address in product page
+        // textAlign:'center'
+    },
+    dash: {
+        width: 1,
+        height: 20,
+        backgroundColor: colors.text1,
+        marginHorizontal: 10,
+    },
+    c3in: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+    },
+    container3: {
+        width: '90%',
+        alignSelf: 'center',
+        alignItems: 'center',
+    },
+    text4: {
+        color: colors.text3,
+        fontSize: 20,
+        marginHorizontal: 10,
+    },
+    c4in: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '100%',
+    },
+    txt5: {
+        color: colors.text1,
+        fontSize: 18,
+        //width:70 //address in product page
+        textAlign: 'center'
+    },
+    txt6: {
+        color: colors.text1,
+        fontSize: 25,
+        //width:70 //address in product page
+        textAlign: 'center'
     },
 });

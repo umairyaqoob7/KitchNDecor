@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StatusBar, StyleSheet, ScrollView,FlatList } from 'react-native';
+import { View, Text, TextInput, StatusBar, StyleSheet, ScrollView, FlatList } from 'react-native';
 import HomeHeadNav from '../components/HomeHeadNav';
 import Categories from '../components/Categories';
 import OfferSlider from '../components/OfferSlider';
@@ -7,8 +7,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../global/style';
 import { firebase } from '../Firebase/FirebaseConfig';
 import Cardslider from '../components/Cardslider';
+import BottomNav from '../components/BottomNav';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const [itemData, setItemData] = useState([]);
   const itemRef = firebase.firestore().collection('ItemData');
   const [kitchenData, setKitchenData] = useState([]);
@@ -40,39 +41,44 @@ const HomeScreen = ({navigation}) => {
   //console.log(itemData);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar />
-      <HomeHeadNav navigation={navigation}/>
-      <View style={styles.searchbox}>
-        <AntDesign name="search1" size={24} color="black" style={styles.searchicon} />
-        <TextInput style={styles.input} placeholder="search"
-          onChangeText={(text) => { setSearch(text) }}
-        />
+      <HomeHeadNav navigation={navigation} />
+      <View style={styles.bottomnav}>
+      <BottomNav navigation={navigation} />
       </View>
-      {search != '' && <View style={styles.seacrhresultsouter}>
-        <FlatList style={styles.searchresultsinner} data={itemData} renderItem={
-          ({ item }) => {
-            if (item.itemName.toLowerCase().includes(search.toLowerCase())) {
-              return (
-                <View style={styles.searchresult}>
-                  <AntDesign name="arrowright" size={24} color="black" />
-                  <Text style={styles.searchresulttext}>{item.itemName}</Text>
-                </View>
-              )
+      <ScrollView>
+        <View style={styles.searchbox}>
+          <AntDesign name="search1" size={24} color="black" style={styles.searchicon} />
+          <TextInput style={styles.input} placeholder="search"
+            onChangeText={(text) => { setSearch(text) }}
+          />
+        </View>
+        {search != '' && <View style={styles.seacrhresultsouter}>
+          <FlatList style={styles.searchresultsinner} data={itemData} renderItem={
+            ({ item }) => {
+              if (item.itemName.toLowerCase().includes(search.toLowerCase())) {
+                return (
+                  <View style={styles.searchresult}>
+                    <AntDesign name="arrowright" size={24} color="black" />
+                    <Text style={styles.searchresulttext}>{item.itemName}</Text>
+                  </View>
+                )
+              }
             }
-          }
-        } />
-      </View>}
-      <Categories />
-      <OfferSlider />
-      {/*<Text>HomeScreen</Text>*/}
-      <Cardslider title={"Today's Special"} data={itemData} navigation=
-      {navigation}/>
-      <Cardslider title={"Kitchen Utensils"} data={kitchenData} navigation=
-      {navigation}/>
-      <Cardslider title={"Home Decoration"} data={decorData} navigation=
-      {navigation}/>
-    </ScrollView>
+          } />
+        </View>}
+        <Categories />
+        <OfferSlider />
+        {/*<Text>HomeScreen</Text>*/}
+        <Cardslider title={"Today's Special"} data={itemData} navigation=
+          {navigation} />
+        <Cardslider title={"Kitchen Utensils"} data={kitchenData} navigation=
+          {navigation} />
+        <Cardslider title={"Home Decoration"} data={decorData} navigation=
+          {navigation} />
+      </ScrollView>
+    </View>
   );
 };
 
@@ -107,21 +113,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     height: '100%',
     backgroundColor: colors.col1,
-},
-searchresultsinner: {
+  },
+  searchresultsinner: {
     width: '100%',
-},
-searchresult: {
+  },
+  searchresult: {
     width: '100%',
     flexDirection: 'row',
     // alignItems: 'center',
     padding: 5,
-},
-searchresulttext: {
+  },
+  searchresulttext: {
     marginLeft: 10,
     fontSize: 18,
     color: colors.text1,
-},
+  },
+  bottomnav: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: colors.col1,
+    zIndex: 20,
+}
 });
 
 export default HomeScreen;

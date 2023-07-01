@@ -72,7 +72,7 @@ module.exports = {
     },
     incdecbtn: {
 
-        backgroundColor: 'red',
+        backgroundColor: 'green',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 50,
