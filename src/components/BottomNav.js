@@ -46,25 +46,20 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 20,
     },
     btncon1: {
-        alignItems: 'center',
-        width:50,
-        height:50,
-        borderRadius:50,
-        justifyContent:'center',
-        alignItems:'center'
+            alignItems: 'center',
     },
     btncon2: {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        top: -20,
-        backgroundColor: colors.text1,
+        //top: -20,
+        //backgroundColor: colors.text1,
         width: 60,
         height: 60,
         borderRadius: 60,
     },
     icon2: {
-        color: 'white',
+        color: 'green',
 
     },
     icon1: {

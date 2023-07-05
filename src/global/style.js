@@ -24,7 +24,7 @@ module.exports = {
     btn2: {
         width: 150,
         height: 50,
-        backgroundColor: 'red',
+        backgroundColor: 'green',
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
