@@ -57,6 +57,8 @@ const Productpage = ({ navigation, route }) => {
         }
     }
 
+    const cartdata = JSON.stringify({ cart: [{ Addonquantity: addonquantity, Itemquantity: quantity, data }] });
+
     return (
         <ScrollView style={styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('home')}
@@ -75,7 +77,7 @@ const Productpage = ({ navigation, route }) => {
                 <View style={styles.s2}>
                     <View style={styles.s2in}>
                         <Text style={styles.head1}>{data.itemName}</Text>
-                        <Text style={styles.head2}>Rs {data.itemPrice}/-</Text>
+                        <Text style={styles.head2}>Rs.{data.itemPrice}</Text>
                     </View>
                     <View style={styles.s3}>
                         <Text style={styles.head3}>About Item</Text>
@@ -100,7 +102,7 @@ const Productpage = ({ navigation, route }) => {
                             <Text style={styles.txt5}>Add Extra</Text>
                             <View style={styles.c3in}>
                                 <Text style={styles.text4}>{data.itemAddon}</Text>
-                                <Text style={styles.text4}>Rs {data.itemAddonPrice}/-</Text>
+                                <Text style={styles.text4}>Rs.{data.itemAddonPrice}</Text>
                             </View>
                             <View style={incdecout}>
                                 <Text style={incdecbtn} onPress={() => increaseAddonQuantity()}>+</Text>
@@ -128,20 +130,20 @@ const Productpage = ({ navigation, route }) => {
                     <View style={styles.c4in}>
                         <Text style={styles.txt2}>Total Price</Text>
                         {data.itemAddonPrice != "" ?
-                            <Text style={styles.txt6}>PKR {
+                            <Text style={styles.txt6}>Rs.{
                                 ((parseInt(data.itemPrice) * parseInt(quantity))
                                     + parseInt(addonquantity) * parseInt(data.itemAddonPrice)).toString()
 
-                            }/-</Text>
+                            }</Text>
 
                             :
-                            <Text style={styles.txt6}>PKR {
+                            <Text style={styles.txt6}>Rs.{
                                 ((parseInt(data.foodPrice) * parseInt(quantity))).toString()
-                            }/-</Text>
+                            }</Text>
                         }
                     </View>
 
-                    <View style={hr80}></View>
+                    <View style={styles.hr7}></View>
                 </View>
 
                 <View style={styles.btncont}>
@@ -149,7 +151,7 @@ const Productpage = ({ navigation, route }) => {
                         <Text style={styles.btntxt}>Add to Cart</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn4}>
-                        <Text style={styles.btntxt1}>Buy Now</Text>
+                    <Text style={styles.btntxt1} onPress={() => navigation.navigate('placeorder', { cartdata })}>Buy Now</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -251,6 +253,7 @@ const styles = StyleSheet.create({
     },
 
     btntxt: {
+        // backgroundColor:'black',
         backgroundColor: 'white',
         color: 'black',
         borderColor: 'black',
@@ -267,10 +270,14 @@ const styles = StyleSheet.create({
     },
 
     btntxt1: {
-        backgroundColor: 'black',
+        backgroundColor:'black',
+        // backgroundColor: 'white',
         color: 'white',
+        borderColor: 'black',
+        borderWidth: 1,
         paddingHorizontal: 25,
         paddingVertical: 20,
+        fontWeight: 600,
         fontSize: 14,
         borderRadius: 10,
         width: '100%',
@@ -278,7 +285,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
 
     },
-
     btncont: {
         width: '100%',
         justifyContent: 'center',
@@ -291,7 +297,6 @@ const styles = StyleSheet.create({
         width: 140,
         height: 63,
         borderRadius: 30,
-        // elevation: 15,
         margin: 12,
     },
     btn4: {
@@ -376,5 +381,11 @@ const styles = StyleSheet.create({
         fontSize: 25,
         //width:70 //address in product page
         textAlign: 'center'
+    },
+    hr7: {
+        width: '80%',
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 1,
+        marginVertical: 10,
     },
 });

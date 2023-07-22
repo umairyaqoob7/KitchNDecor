@@ -84,21 +84,19 @@ const UserCart = ({ navigation }) => {
                                                 <Text style={styles.txt1}>{item.Itemquantity}
                                                     &nbsp;{item.data.itemName}</Text>
 
-                                                <Text style={styles.txt2}>PKR {item.data.itemPrice} 
-                                                / each</Text>
-
                                             </View>
+                                            <Text style={styles.txt2}>Rs.{item.data.itemPrice} 
+                                                </Text>
                                             {item.Addonquantity > 0 &&
                                                 <View style={styles.c2}>
                                                     <Text style={styles.txt3}>{item.
                                                         Addonquantity}&nbsp;{item.data.itemAddon}</Text>
 
-                                                    <Text style={styles.txt3}>{item.data.
-                                                        itemAddonPrice}/each</Text>
+                                                    <Text style={styles.txt3}>Rs{item.data.
+                                                        itemAddonPrice}</Text>
                                                 </View>
                                             }
                                             <TouchableOpacity style={styles.c4} onPress={() => deleteItem(item)} >
-                                                <Text style={styles.txt1}>Delete</Text>
                                                 <AntDesign name="delete" size={24} color="black" style={styles.del} />
                                             </TouchableOpacity>
                                         </View>
@@ -111,7 +109,7 @@ const UserCart = ({ navigation }) => {
                 <View style={styles.btncont}>
                     <View style={styles.c3}>
                         <Text style={styles.txt5}>Total</Text>
-                        <Text style={styles.txt6}>Rs. {totalCost}/-</Text>
+                        <Text style={styles.txt6}>Rs.{totalCost}</Text>
                     </View>
                     <TouchableOpacity style={styles.btn2}>
                         <Text style={styles.btntxt} onPress={() => navigation.navigate
@@ -232,7 +230,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 100,
+        width: 50,
         borderRadius: 10,
         borderColor: colors.text1,
         borderWidth: 1,

@@ -10,6 +10,7 @@ import UserProfile from './src/screens/UserProfile';
 import Productpage from './src/screens/Productpage';
 import UserCart from './src/screens/UserCart';
 import Placeorder from './src/screens/Placeorder';
+import TrackOrder from './src/screens/TrackOrder';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -52,6 +53,11 @@ export default function App() {
           }}
         />
         <Stack.Screen name="placeorder" component={Placeorder}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="trackorders" component={TrackOrder}
           options={{
             headerShown: false,
           }}

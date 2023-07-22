@@ -24,11 +24,11 @@ module.exports = {
     btn2: {
         width: 150,
         height: 50,
-        backgroundColor: 'green',
+       backgroundColor: 'green',
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 10,
+        elevation: 20,
         color: 'white',
         margin: 10,
         alignSelf: 'center',
