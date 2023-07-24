@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import logo1 from '../../../assets/logo1.png';
+import logo3 from '../../../assets/logo3.png';
 import { colors, hr80 } from '../../global/style';
 
 import { firebase } from '../../Firebase/FirebaseConfig';
@@ -39,7 +39,7 @@ const WelcomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Kitch n Decor </Text>
       <View style={styles.logout}>
-        <Image source={logo1} style={styles.logo1} />
+        <Image source={logo3} style={styles.logo1} />
       </View>
 
       <View style={hr80} />
@@ -76,7 +76,7 @@ const WelcomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "orange",
+    backgroundColor: "green",
     width: "100%",
     alignItems: "center",
     justifyContent: "center"
