@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StatusBar, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { View, Text, TextInput, StatusBar, StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import HomeHeadNav from '../components/HomeHeadNav';
-import Categories from '../components/Categories';
+// import Categories from '../components/Categories';
 import OfferSlider from '../components/OfferSlider';
 import { AntDesign } from '@expo/vector-icons';
-import { colors } from '../global/style';
+import { colors, kitchen } from '../global/style';
 import { firebase } from '../Firebase/FirebaseConfig';
 import Cardslider from '../components/Cardslider';
 import BottomNav from '../components/BottomNav';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+// import Kitchen from './Kitchen';
 
 const HomeScreen = ({ navigation }) => {
   const [itemData, setItemData] = useState([]);
@@ -33,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
     // console.log('Kitchen Data:', kitchenData);
 
     setDecorData(itemData.filter((item) => item.itemType == 'Home-Decoration'));
-    // console.log('Decor Data:', decorData);
+    
   }, [itemData]);
 
   //console.log(decorData)
@@ -45,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
       <StatusBar />
       <HomeHeadNav navigation={navigation} />
       <View style={styles.bottomnav}>
-      <BottomNav navigation={navigation} />
+        <BottomNav navigation={navigation} />
       </View>
       <ScrollView>
         <View style={styles.searchbox}>
@@ -68,7 +71,25 @@ const HomeScreen = ({ navigation }) => {
             }
           } />
         </View>}
-        <Categories />
+        {/* <Categories /> */}
+        <Text style={styles.head}>Categories</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <TouchableOpacity onPress={() => navigation.navigate('kitchen')}>
+          <View style={styles.box}>
+          <FontAwesome5 name="utensils" size={24} color="black" 
+        style={styles.myicon} />
+            <Text> Kitchen Item</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('decoration')}>
+          <View style={styles.box}>
+          <MaterialCommunityIcons name="lamps" size={24} color="black" 
+        style={styles.myicon} />
+            <Text> Home Decor</Text>
+          </View>
+        </TouchableOpacity>
+        </ScrollView>
         <OfferSlider />
         {/*<Text>HomeScreen</Text>*/}
         <Cardslider title={"Today's Special"} data={itemData} navigation=
@@ -88,6 +109,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.col1,
     width: '100%',
     height: '100%',
+  },
+  box: {
+    backgroundColor: colors.col1,
+    elevation: 20,
+    margin: 17,
+    padding: 8,
+    marginLeft:20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   searchbox: {
     flexDirection: 'row',
@@ -134,7 +166,16 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: colors.col1,
     zIndex: 20,
-}
+  },
+  head: {
+    color: colors.text1,
+    fontSize: 20,
+    fontWeight: '300',
+    alignSelf: 'center',
+    paddingBottom: 5,
+    borderBottomColor: colors.text1,
+    borderBottomWidth: 1,
+},
 });
 
 export default HomeScreen;
