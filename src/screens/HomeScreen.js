@@ -74,6 +74,7 @@ const HomeScreen = ({ navigation }) => {
         {/* <Categories /> */}
         <Text style={styles.head}>Categories</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          
         <TouchableOpacity onPress={() => navigation.navigate('kitchen')}>
           <View style={styles.box}>
           <FontAwesome5 name="utensils" size={24} color="black" 

@@ -8,15 +8,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 const BottomNav = ({navigation}) => {
     return (
         <View style={styles.container}>
-            <View style={styles.btncon1}>
+            <View style={styles.btncon2}>
                 <AntDesign name="home" size={30} color="black" style={styles.icon1}
                  onPress={() => { navigation.navigate('home') }} />
 
             </View>
-            <View style={styles.btncon2} >
-                <Ionicons name="search" size={40} color="black" style={styles.icon2}
-                 onPress={() => { navigation.navigate('home') }} />
-            </View>
+        
             <View style={styles.btncon1} >
                 <AntDesign name="shoppingcart" size={30} color="black" style={styles.icon1}
                  onPress={() => { navigation.navigate('cart') }} />
@@ -54,8 +51,8 @@ const styles = StyleSheet.create({
         position: 'relative',
         //top: -20,
         //backgroundColor: colors.text1,
-        width: 60,
-        height: 60,
+        width: 30,
+        height: 50,
         borderRadius: 60,
     },
     icon2: {
