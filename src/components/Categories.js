@@ -3,8 +3,12 @@ import React from 'react';
 import { colors, decor, kitchen } from '../global/style';
 
 const Categories = ({ title, data, navigation }) => {
-  const openProductpage = (item) => {
-    navigation.navigate('productpage', item);
+  const openProductkitchen= (item) => {
+    navigation.navigate('productkitchen', item);
+  };
+  const openProductdecor= (item) => {
+    //console.log('item ---- ', item.itemType);
+    navigation.navigate('productdecor', item);
   };
 
   // Convert the data array into an array of arrays (rows of 2 cards)
@@ -23,23 +27,43 @@ const Categories = ({ title, data, navigation }) => {
         renderItem={({ item: row }) => (
           <View style={styles.rowContainer}>
             {row.map((item) => (
-              <TouchableOpacity key={item.index} onPress={() => openProductpage(item)}>
-                <View style={styles.card}>
-                  <View style={styles.s1}>
-                    <Image source={{ uri: item.itemImageUrl }} style={styles.cardimgin} />
-                  </View>
-                  <View style={styles.s2}>
-                    <Text style={styles.txt1}>{item.itemName}</Text>
-                    <View style={styles.s2in}>
-                      <Text style={styles.txt2}>Rs.{item.itemPrice}/-</Text>
-                      {/* {item.itemType == 'kitchen' ? <Text style={kitchen}></Text> : <Text style={decor}></Text>} */}
+              item.itemType === 'Home-Decoration' ? (
+                <TouchableOpacity key={item.index} onPress={() => openProductdecor(item)}>
+                  <View style={styles.card}>
+                    <View style={styles.s1}>
+                      <Image source={{ uri: item.itemImageUrl }} style={styles.cardimgin} />
+                    </View>
+                    <View style={styles.s2}>
+                      <Text style={styles.txt1}>{item.itemName}</Text>
+                      <View style={styles.s2in}>
+                        <Text style={styles.txt2}>Rs.{item.itemPrice}/-</Text>
+                        {/* {item.itemType == 'kitchen' ? <Text style={kitchen}></Text> : <Text style={decor}></Text>} */}
+                      </View>
+                    </View>
+                    <View style={styles.s3}>
+                      <Text style={styles.buybtn}>Buy</Text>
                     </View>
                   </View>
-                  <View style={styles.s3}>
-                    <Text style={styles.buybtn}>Buy</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity key={item.index} onPress={() => openProductkitchen(item)}>
+                  <View style={styles.card}>
+                    <View style={styles.s1}>
+                      <Image source={{ uri: item.itemImageUrl }} style={styles.cardimgin} />
+                    </View>
+                    <View style={styles.s2}>
+                      <Text style={styles.txt1}>{item.itemName}</Text>
+                      <View style={styles.s2in}>
+                        <Text style={styles.txt2}>Rs.{item.itemPrice}/-</Text>
+                        {/* {item.itemType == 'kitchen' ? <Text style={kitchen}></Text> : <Text style={decor}></Text>} */}
+                      </View>
+                    </View>
+                    <View style={styles.s3}>
+                      <Text style={styles.buybtn}>Buy</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              )
             ))}
           </View>
         )}

@@ -296,8 +296,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         elevation: 20,
     },
-    btnout:{
-        backgroundColor:colors.text1,
-        borderRadius:10
+    btnout: {
+        backgroundColor: colors.text1,
+        borderRadius: 10
     }
 });
