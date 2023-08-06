@@ -13,6 +13,8 @@ import Placeorder from './src/screens/Placeorder';
 import TrackOrder from './src/screens/TrackOrder';
 import Kitchen from './src/screens/Kitchen';
 import Decoration from './src/screens/Decoration';
+import Productkitchen from './src/screens/Productkitchen';
+import Productdecor from './src/screens/ProductDecor';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -49,6 +51,16 @@ export default function App() {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="productkitchen" component={Productkitchen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="productdecor" component={Productdecor}
+        options={{
+          headerShown: false,
+        }}
+      />
         <Stack.Screen name="cart" component={UserCart}
           options={{
             headerShown: false,
