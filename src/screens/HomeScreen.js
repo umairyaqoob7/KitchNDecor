@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
     // console.log('Kitchen Data:', kitchenData);
 
     setDecorData(itemData.filter((item) => item.itemType == 'Home-Decoration'));
-    
+
   }, [itemData]);
 
   //console.log(decorData)
@@ -58,38 +58,44 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
         {search != '' && <View style={styles.seacrhresultsouter}>
-          <FlatList style={styles.searchresultsinner} data={itemData} renderItem={
-            ({ item }) => {
+          <FlatList
+            style={styles.searchresultsinner}
+            data={itemData}
+            renderItem={({ item }) => {
               if (item.itemName.toLowerCase().includes(search.toLowerCase())) {
                 return (
-                  <View style={styles.searchresult}>
-                    <AntDesign name="arrowright" size={24} color="black" />
-                    <Text style={styles.searchresulttext}>{item.itemName}</Text>
-                  </View>
-                )
+                  <TouchableOpacity
+                    key={item.id} // Assuming you have an 'id' property for each item
+                    onPress={() => navigation.navigate('productpage', item)}>
+                    <View style={styles.searchresult}>
+                      <AntDesign name="arrowright" size={24} color="black" />
+                      <Text style={styles.searchresulttext}>{item.itemName}</Text>
+                    </View>
+                  </TouchableOpacity>
+                );
               }
-            }
-          } />
+            }}
+          />
         </View>}
         {/* <Categories /> */}
         <Text style={styles.head}>Categories</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          
-        <TouchableOpacity onPress={() => navigation.navigate('kitchen')}>
-          <View style={styles.box}>
-          <FontAwesome5 name="utensils" size={24} color="black" 
-        style={styles.myicon} />
-            <Text> Kitchen Item</Text>
-          </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('decoration')}>
-          <View style={styles.box}>
-          <MaterialCommunityIcons name="lamps" size={24} color="black" 
-        style={styles.myicon} />
-            <Text> Home Decor</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('kitchen')}>
+            <View style={styles.box}>
+              <FontAwesome5 name="utensils" size={24} color="black"
+                style={styles.myicon} />
+              <Text> Kitchen Item</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('decoration')}>
+            <View style={styles.box}>
+              <MaterialCommunityIcons name="lamps" size={24} color="black"
+                style={styles.myicon} />
+              <Text> Home Decor</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
         <OfferSlider />
         {/*<Text>HomeScreen</Text>*/}
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
     elevation: 20,
     margin: 17,
     padding: 8,
-    marginLeft:20,
+    marginLeft: 20,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -176,7 +182,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     borderBottomColor: colors.text1,
     borderBottomWidth: 1,
-},
+  },
+  bottomgap: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: colors.col1,
+    zIndex: 20,
+  },
 });
 
 export default HomeScreen;

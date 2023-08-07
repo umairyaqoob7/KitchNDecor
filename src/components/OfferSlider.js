@@ -1,23 +1,26 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
-import  Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper';
 import { colors } from '../global/style';
 const OfferSlider = () => {
   return (
     <View>
       <View style={styles.offerSlider}>
         <Swiper autoplay={true} autoplayTimeout={5} showsButtons={true}
-        dotColor={colors.text2} activeDotColor={colors.text1}
-        nextButton={<Text style={styles.buttonText}>›</Text>}
-        prevButton={<Text style={styles.buttonText}>‹</Text>}>
+          dotColor={colors.text2} activeDotColor={colors.text1}
+          nextButton={<Text style={styles.buttonText}>›</Text>}
+          prevButton={<Text style={styles.buttonText}>‹</Text>}>
           <View style={styles.slide}>
-            <Image source={require('../../assets/sale20.jpg')} style={styles.image} />
+            <Image source={require('../../assets/offer3.png')} style={styles.image} />
           </View>
           <View style={styles.slide}>
-            <Image source={require('../../assets/sale2.jpg')} style={styles.image} />
+            <Image source={require('../../assets/offer1.png')} style={styles.image} />
           </View>
           <View style={styles.slide}>
-            <Image source={require('../../assets/platesale.png')} style={styles.image} />
+            <Image source={require('../../assets/offer2.png')} style={styles.image} />
+          </View>
+          <View style={styles.slide}>
+            <Image source={require('../../assets/offer4.png')} style={styles.image} />
           </View>
         </Swiper>
       </View>
@@ -36,20 +39,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 20,
-},
-slide: {
+  },
+  slide: {
     width: '100%',
     height: 200,
     backgroundColor: colors.col1,
     justifyContent: 'center',
     alignItems: 'center',
-},
-image: {
+  },
+  image: {
     width: '100%',
     height: '100%',
     borderRadius: 10,
-},
-buttonText: {
+  },
+  buttonText: {
     color: colors.text1,
     fontSize: 30,
     fontWeight: '500',
@@ -59,5 +62,5 @@ buttonText: {
     height: 30,
     textAlign: 'center',
     lineHeight: 28,
-}
+  }
 });

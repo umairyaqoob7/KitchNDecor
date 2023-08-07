@@ -53,9 +53,12 @@ const TrackOrder = ({ navigation }) => {
                             <Text style={styles.ordertxt2}>order id : {order.orderid}</Text>
                             <Text style={styles.ordertxt2}>order date : {convertDate(order.orderdate)}</Text>
                             {order.orderstatus == 'ontheway' && <Text style={styles.orderotw}>Your order is on the way </Text>}
+                            {order.orderstatus == 'ontheway' && <Text style={styles.orderpendingreplace}>If any issue, You can replace within 7 days</Text>}
                             {order.orderstatus == 'delivered' && <Text style={styles.orderdelivered}>Your order is delivered </Text>}
+                            {order.orderstatus == 'delivered' && <Text style={styles.orderpendingreplace}>If any issue, You can replace within 7 days</Text>}
                             {order.orderstatus == 'cancelled' && <Text style={styles.ordercancelled}>Your order is cancelled </Text>}
-                            {order.orderstatus == 'pending' && <Text style={styles.orderpending}>Your order is pending </Text>}
+                            {order.orderstatus == 'pending' && <Text style={styles.orderpending}>Your order is pending</Text>}
+                            {order.orderstatus == 'pending' && <Text style={styles.orderpendingreplace}>If any issue, You can replace within 7 days</Text>}
                             <View style={styles.row1}>
                                 <Text style={styles.ordertxt1}>Delivery Agent name & contact</Text>
                                 {
@@ -312,6 +315,17 @@ const styles = StyleSheet.create({
     orderpending: {
         fontSize: 20,
         backgroundColor: 'yellow',
+        color: 'grey',
+        textAlign: 'center',
+        borderRadius: 10,
+        padding: 5,
+        marginVertical: 10,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+    },
+    orderpendingreplace: {
+        fontSize: 20,
+        backgroundColor: 'darkblue',
         color: 'grey',
         textAlign: 'center',
         borderRadius: 10,
