@@ -28,6 +28,7 @@ const Productpage = ({ navigation, route }) => {
                 docRef.update({
                     cart: firebase.firestore.FieldValue.arrayUnion(data1)
                 })
+
                 alert('Added to Cart')
             }
             else {
@@ -38,6 +39,8 @@ const Productpage = ({ navigation, route }) => {
             }
         })
     }
+    console.log(quantity);
+    //console.log(data.itemPrice * quantity);
 
     const increaseQuantity = () => {
         setQuantity((parseInt(quantity) + 1).toString())
@@ -128,20 +131,25 @@ const Productpage = ({ navigation, route }) => {
                     {/* <View style={hr80}></View> */}
 
                     <View style={styles.c4in}>
-                        <Text style={styles.txt2}>Total Price</Text>
-                        {data.itemAddonPrice != "" ?
-                            <Text style={styles.txt6}>Rs.{
-                                ((parseInt(data.itemPrice) * parseInt(quantity))
-                                    + parseInt(addonquantity) * parseInt(data.itemAddonPrice)).toString()
-
-                            }</Text>
-
-                            :
-                            <Text style={styles.txt6}>Rs.{
-                                ((parseInt(data.foodPrice) * parseInt(quantity))).toString()
-                            }</Text>
-                        }
-                    </View>
+    <Text style={styles.txt2}>Total Price</Text>
+    {data.itemAddonPrice !== "" ? (
+        <Text style={styles.txt6}>
+            Rs.{" "}
+            {(
+                (parseFloat(data.itemPrice.replace(/,/g, '')) * parseFloat(quantity)) +
+                parseFloat(addonquantity) * parseFloat(data.itemAddonPrice)
+            ).toLocaleString('en-IN')}
+        </Text>
+    ) : (
+        <Text style={styles.txt6}>
+            Rs.{" "}
+            {(
+                parseFloat(data.itemPrice.replace(/,/g, '')) *
+                (parseFloat(quantity) + parseFloat(addonquantity))
+            ).toLocaleString('en-IN')}
+        </Text>
+    )}
+</View>
 
                     <View style={styles.hr7}></View>
                 </View>
@@ -151,7 +159,7 @@ const Productpage = ({ navigation, route }) => {
                         <Text style={styles.btntxt}>Add to Cart</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn4}>
-                    <Text style={styles.btntxt1} onPress={() => navigation.navigate('placeorder', { cartdata })}>Buy Now</Text>
+                        <Text style={styles.btntxt1} onPress={() => navigation.navigate('placeorder', { cartdata })}>Buy Now</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -270,7 +278,7 @@ const styles = StyleSheet.create({
     },
 
     btntxt1: {
-        backgroundColor:'black',
+        backgroundColor: 'black',
         // backgroundColor: 'white',
         color: 'white',
         borderColor: 'black',
