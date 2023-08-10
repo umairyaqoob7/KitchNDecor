@@ -7,8 +7,8 @@ import {colors} from '../global/style';
 const HomeHeadNav = ({navigation}) => {
   return (
     <View style={styles.container}>
-        <Fontisto name="nav-icon-list-a" size={24} color="black" 
-        style={styles.myicon}/>
+        {/* <Fontisto name="nav-icon-list-a" size={24} color="black" 
+        style={styles.myicon}/> */}
         <View style={styles.containerin}>
         <Text style={styles.mytext}>Kitch-n-Decor </Text>
         <FontAwesome5 name="utensils" size={24} color="black" 
@@ -39,6 +39,7 @@ const styles=StyleSheet.create ({
         containerin: {
             flexDirection: 'row',
             alignItems: 'center',
+            marginLeft:75
         },
         myicon: {
             color: colors.text1,

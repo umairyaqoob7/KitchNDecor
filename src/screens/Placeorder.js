@@ -8,21 +8,28 @@ const Placeorder = ({ navigation, route }) => {
     const [orderdata, setOrderdata] = useState([]);
     const [totalCost, setTotalCost] = useState('0');
     const { cartdata } = route.params;
-
+    const itemPrice = (item) => {
+        return parseFloat(item.Itemquantity.replace(/,/g, '')) * parseFloat(item.data.itemPrice.replace(/,/g, ''));
+    };
     useEffect(() => {
         setOrderdata(JSON.parse(cartdata));
     }, [cartdata]);
-
+// console.log(totalitemprice);
     useEffect(() => {
         if (cartdata != null) {
             const item = JSON.parse(cartdata).cart;
             let totalitemprice = 0;
             item.map((item) => {
-                totalitemprice = (parseInt(item.data.itemPrice) * parseInt(item.Itemquantity)) +
-                    (parseInt(item.data.itemAddonPrice) * parseInt(item.Addonquantity)) + totalitemprice;
+                let itemPrice = item.data.itemPrice;
+                let itemQty = item.Itemquantity;
+                let itemAddPrice = item.data.itemAddonPrice;
+                let itemAddQty = item.Addonquantity;
+
+               totalitemprice = ( parseFloat(itemPrice.replace(/,/g, '')) * parseFloat(itemQty.replace(/,/g, '')))
+                 + (parseFloat(itemAddPrice.replace(/,/g, ''))  * parseFloat(itemAddQty.replace(/,/g, ''))) + totalitemprice;
             })
             // console.log(totalitemprice);
-            setTotalCost(JSON.stringify(totalitemprice))
+            setTotalCost(totalitemprice.toLocaleString())
         }
     }, [cartdata])
 
@@ -85,6 +92,7 @@ const Placeorder = ({ navigation, route }) => {
             alert('Order Placed Successfully');
         })
     }
+    // console.log("Total Cost:", totalCost);
     return (
         <ScrollView>
             <TouchableOpacity onPress={() => navigation.navigate('home')}>
@@ -105,7 +113,8 @@ const Placeorder = ({ navigation, route }) => {
                                 </View>
                                 <View style={styles.right}>
                                     <Text style={styles.totalprice}>
-                                        Rs.{parseInt(item.Itemquantity) * parseInt(item.data.itemPrice)}/-
+                                        Rs.{(parseFloat(item.Itemquantity.replace(/,/g, '')) * parseFloat(item.data.itemPrice.replace(/,/g, '')))
+                                                .toLocaleString('en-IN', { maximumFractionDigits: 2 })}/-
                                     </Text>
                                 </View>
                             </View>
@@ -118,7 +127,10 @@ const Placeorder = ({ navigation, route }) => {
                                     </View>
                                     <View style={styles.right}>
                                         <Text style={styles.totalprice}>
-                                            Rs.{parseInt(item.Addonquantity) * parseInt(item.data.itemAddonPrice)}/-
+                                            Rs.{
+                                           (parseFloat(item.Addonquantity.replace(/,/g, '')) * parseFloat(item.data.itemAddonPrice.replace(/,/g, '')))
+                                           .toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                                            }/-
                                         </Text>
                                     </View>
                                 </View>

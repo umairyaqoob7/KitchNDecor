@@ -79,7 +79,7 @@ const TrackOrder = ({ navigation }) => {
                                                     <Text style={styles.price1}>Rs.{item.data.itemPrice}</Text>
                                                 </View>
                                                 <View style={styles.right}>
-                                                    <Text style={styles.totalprice}>Rs.{parseInt(item.Itemquantity) * parseInt(item.data.itemPrice)}</Text>
+                                                    <Text style={styles.totalprice}>Rs.{parseInt(item.Itemquantity.replace(/,/g, '')) * parseInt(item.data.itemPrice.replace(/,/g, ''))}</Text>
                                                 </View>
                                             </View>
 
@@ -90,7 +90,7 @@ const TrackOrder = ({ navigation }) => {
                                                     <Text style={styles.price1}>Rs.{item.data.itemAddonPrice}</Text>
                                                 </View>
                                                 <View style={styles.right}>
-                                                    <Text style={styles.totalprice}>Rs.{parseInt(item.Addonquantity) * parseInt(item.data.itemAddonPrice)}</Text>
+                                                    <Text style={styles.totalprice}>Rs.{parseInt(item.Addonquantity.replace(/,/g, '')) * parseInt(item.data.itemAddonPrice.replace(/,/g, ''))}</Text>
                                                 </View>
                                             </View>
                                         </View>

@@ -33,18 +33,18 @@ const UserCart = ({ navigation }) => {
             // console.log(item);
             let totalitemprice = 0;
             item.map((item) => {
-                // console.log(item.data.itemPrice);
-                // console.log(item.Itemquantity);
-                // console.log(item.data.itemAddonPrice);
-                // console.log(item.Addonquantity);
-                totalitemprice = (parseInt(item.data.itemPrice) * parseInt(item.Itemquantity)) +
-                    (parseInt(item.data.itemAddonPrice) * parseInt(item.Addonquantity)) + totalitemprice;
+                let itemPrice = item.data.itemPrice;
+                let itemQty = item.Itemquantity;
+                let itemAddPrice = item.data.itemAddonPrice;
+                let itemAddQty = item.Addonquantity;
+
+                totalitemprice = ( parseFloat(itemPrice.replace(/,/g, '')) * parseFloat(itemQty.replace(/,/g, '')))
+                 + (parseFloat(itemAddPrice.replace(/,/g, ''))  * parseFloat(itemAddQty.replace(/,/g, ''))) + totalitemprice;
             })
-            // console.log(totalitemprice);
-            setTotalCost(JSON.stringify(totalitemprice))
+            
+            setTotalCost(totalitemprice.toLocaleString())
         }
     }, [cartdata])
-    //console.log(cartdata);
 
     const deleteItem = (item) => {
         const docRef = firebase.firestore().collection('UserCart').doc(firebase.auth().currentUser.uid);

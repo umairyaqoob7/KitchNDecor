@@ -39,7 +39,7 @@ const Productpage = ({ navigation, route }) => {
             }
         })
     }
-    console.log(quantity);
+    // console.log(quantity);
     //console.log(data.itemPrice * quantity);
 
     const increaseQuantity = () => {
