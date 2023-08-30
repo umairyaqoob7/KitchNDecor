@@ -14,7 +14,7 @@ const Placeorder = ({ navigation, route }) => {
     useEffect(() => {
         setOrderdata(JSON.parse(cartdata));
     }, [cartdata]);
-// console.log(totalitemprice);
+    // console.log(totalitemprice);
     useEffect(() => {
         if (cartdata != null) {
             const item = JSON.parse(cartdata).cart;
@@ -25,8 +25,8 @@ const Placeorder = ({ navigation, route }) => {
                 let itemAddPrice = item.data.itemAddonPrice;
                 let itemAddQty = item.Addonquantity;
 
-               totalitemprice = ( parseFloat(itemPrice.replace(/,/g, '')) * parseFloat(itemQty.replace(/,/g, '')))
-                 + (parseFloat(itemAddPrice.replace(/,/g, ''))  * parseFloat(itemAddQty.replace(/,/g, ''))) + totalitemprice;
+                totalitemprice = (parseFloat(itemPrice.replace(/,/g, '')) * parseFloat(itemQty.replace(/,/g, '')))
+                    + (parseFloat(itemAddPrice.replace(/,/g, '')) * parseFloat(itemAddQty.replace(/,/g, ''))) + totalitemprice;
             })
             // console.log(totalitemprice);
             setTotalCost(totalitemprice.toLocaleString())
@@ -88,7 +88,7 @@ const Placeorder = ({ navigation, route }) => {
             orderuseruid: userloggeduid,
             orderpayment: 'cash on delivery',
             paymentstatus: 'unpaid',
-        }).then(()=>{
+        }).then(() => {
             alert('Order Placed Successfully');
         })
     }
@@ -114,7 +114,7 @@ const Placeorder = ({ navigation, route }) => {
                                 <View style={styles.right}>
                                     <Text style={styles.totalprice}>
                                         Rs.{(parseFloat(item.Itemquantity.replace(/,/g, '')) * parseFloat(item.data.itemPrice.replace(/,/g, '')))
-                                                .toLocaleString('en-IN', { maximumFractionDigits: 2 })}/-
+                                            .toLocaleString('en-IN', { maximumFractionDigits: 2 })}/-
                                     </Text>
                                 </View>
                             </View>
@@ -128,8 +128,8 @@ const Placeorder = ({ navigation, route }) => {
                                     <View style={styles.right}>
                                         <Text style={styles.totalprice}>
                                             Rs.{
-                                           (parseFloat(item.Addonquantity.replace(/,/g, '')) * parseFloat(item.data.itemAddonPrice.replace(/,/g, '')))
-                                           .toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                                                (parseFloat(item.Addonquantity.replace(/,/g, '')) * parseFloat(item.data.itemAddonPrice.replace(/,/g, '')))
+                                                    .toLocaleString('en-IN', { maximumFractionDigits: 2 })
                                             }/-
                                         </Text>
                                     </View>
@@ -150,7 +150,7 @@ const Placeorder = ({ navigation, route }) => {
                     </View>
                 </View>
                 <View style={hr80}></View>
-                
+
                 <View style={styles.userdataout}>
                     <Text style={styles.head1}>Your Details</Text>
                     <View style={styles.row}>
@@ -192,9 +192,16 @@ const Placeorder = ({ navigation, route }) => {
 
                 <View style={hr80}></View>
 
+                <View style={styles.paymentcontainer}>
+                    <Text style={styles.paymentstatus}>Payment Method:</Text>
+                    <Text style={styles.status}>Cash on Delivery</Text>
+                </View>
+
+                <View style={hr80}></View>
+
                 <View >
                     <TouchableOpacity style={btn1}>
-                        <Text style={styles.btntext} onPress={() => placenow()}>Proceed to Payment</Text>
+                        <Text style={styles.btntext} onPress={() => placenow()}>Place Order</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -275,4 +282,18 @@ const styles = StyleSheet.create({
         color: colors.col1,
         margin: 10,
     },
+    paymentcontainer:{
+        flexDirection:'row',
+        margin:10,
+    },
+    paymentstatus:{
+        color:'green',
+        fontSize:20,
+        fontWeight:200,
+        marginRight:5
+    },
+    status:{
+        marginTop:'2%',
+        fontWeight:900
+    }
 });

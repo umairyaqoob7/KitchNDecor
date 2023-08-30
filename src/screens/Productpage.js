@@ -5,6 +5,7 @@ import {
     navbtn, navbtnin, navbtnout, colors, btn2, hr80, incdecbtn,
     incdecinput, incdecout
 } from '../global/style';
+import BottomNav from '../components/BottomNav';
 import { firebase } from '../Firebase/FirebaseConfig';
 
 const Productpage = ({ navigation, route }) => {
@@ -64,6 +65,9 @@ const Productpage = ({ navigation, route }) => {
 
     return (
         <ScrollView style={styles.container}>
+            <View style={styles.bottomnav}>
+                <BottomNav navigation={navigation} />
+            </View>
             <TouchableOpacity onPress={() => navigation.navigate('home')}
                 style={navbtnout}>
                 <View style={navbtn}>
@@ -131,27 +135,26 @@ const Productpage = ({ navigation, route }) => {
                     {/* <View style={hr80}></View> */}
 
                     <View style={styles.c4in}>
-    <Text style={styles.txt2}>Total Price</Text>
-    {data.itemAddonPrice !== "" ? (
-        <Text style={styles.txt6}>
-            Rs.{" "}
-            {(
-                (parseFloat(data.itemPrice.replace(/,/g, '')) * parseFloat(quantity)) +
-                parseFloat(addonquantity) * parseFloat(data.itemAddonPrice)
-            ).toLocaleString('en-IN')}
-        </Text>
-    ) : (
-        <Text style={styles.txt6}>
-            Rs.{" "}
-            {(
-                parseFloat(data.itemPrice.replace(/,/g, '')) *
-                (parseFloat(quantity) + parseFloat(addonquantity))
-            ).toLocaleString('en-IN')}
-        </Text>
-    )}
-</View>
+                        <Text style={styles.txt2}>Total Price</Text>
+                        {data.itemAddonPrice !== "" ? (
+                            <Text style={styles.txt6}>
+                                Rs.{" "}
+                                {(
+                                    (parseFloat(data.itemPrice.replace(/,/g, '')) * parseFloat(quantity)) +
+                                    parseFloat(addonquantity) * parseFloat(data.itemAddonPrice)
+                                ).toLocaleString('en-IN')}
+                            </Text>
+                        ) : (
+                            <Text style={styles.txt6}>
+                                Rs.{" "}
+                                {(
+                                    parseFloat(data.itemPrice.replace(/,/g, '')) *
+                                    (parseFloat(quantity) + parseFloat(addonquantity))
+                                ).toLocaleString('en-IN')}
+                            </Text>
+                        )}
+                    </View>
 
-                    <View style={styles.hr7}></View>
                 </View>
 
                 <View style={styles.btncont}>
@@ -298,6 +301,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // alignItems: 'center',
         marginTop: -32,
+        bottom:40,
         flexDirection: 'row',
     },
 
@@ -377,6 +381,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '100%',
+        bottom:60,
     },
     txt5: {
         color: colors.text1,
@@ -390,10 +395,11 @@ const styles = StyleSheet.create({
         //width:70 //address in product page
         textAlign: 'center'
     },
-    hr7: {
-        width: '80%',
-        borderBottomColor: '#E0E0E0',
-        borderBottomWidth: 1,
-        marginVertical: 10,
-    },
+    bottomnav: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: colors.col1,
+        zIndex: 20,
+      },
 });

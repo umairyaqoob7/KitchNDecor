@@ -105,6 +105,8 @@ const HomeScreen = ({ navigation }) => {
           {navigation} />
         <Cardslider title={"Home Decoration"} data={decorData} navigation=
           {navigation} />
+           <Text></Text>
+          <Text></Text>
       </ScrollView>
     </View>
   );

@@ -113,7 +113,7 @@ const UserCart = ({ navigation }) => {
                     </View>
                     <TouchableOpacity style={styles.btn2}>
                         <Text style={styles.btntxt} onPress={() => navigation.navigate
-                            ('placeorder', { cartdata })}>Place Order</Text>
+                            ('placeorder', { cartdata })}>Order Proceed</Text>
                     </TouchableOpacity>
                 </View>
             </View>

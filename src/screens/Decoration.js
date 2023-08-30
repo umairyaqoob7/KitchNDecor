@@ -4,7 +4,7 @@ import Categories from '../components/Categories';
 import { colors } from '../global/style';
 import { AntDesign } from '@expo/vector-icons';
 import { firebase } from '../Firebase/FirebaseConfig';
-
+import DecorOffer from '../components/DecorOffer';
 
 const Decoration = ({ navigation }) => {
     const [decorData, setDecorData] = useState([]);
@@ -37,6 +37,7 @@ const Decoration = ({ navigation }) => {
                 </TouchableOpacity>
                 <Text style={styles.headText}>Home Decorations</Text>
             </View>
+            <DecorOffer />
             <View style={styles.container} >
                 <Categories data={decorData} navigation={navigation} />
             </View>

@@ -4,6 +4,7 @@ import Categories from '../components/Categories';
 import { firebase } from '../Firebase/FirebaseConfig';
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../global/style';
+import KitchenOffer from '../components/KitchenOffer';
 
 const Kitchen = ({ navigation }) => {
     const [kitchenData, setKitchenData] = useState([]);
@@ -35,6 +36,7 @@ const Kitchen = ({ navigation }) => {
             </TouchableOpacity>
                 <Text style={styles.headText}>Kitchen Utensils</Text>
             </View>
+            <KitchenOffer />
             <View style={styles.container}>
                 <Categories data={kitchenData} navigation={navigation} />
             </View>
